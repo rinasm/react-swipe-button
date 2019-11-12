@@ -1,7 +1,7 @@
 {
   "name": "react-swipe-button",
   "version": "1.0.0",
-  "description": "This Package is a swipe button for react",
+  "description": "This Package is a swipe button for Web / Mobile",
   "author": "rinasm",
   "license": "MIT",
   "repository": "rinasm/react-swipe-button",
@@ -57,5 +57,9 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react swipe", "react swipe button", "swipe button", "js swipe", "swipe",
+    "light weight swipe"
   ]
 }

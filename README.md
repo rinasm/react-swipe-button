@@ -10,21 +10,40 @@
 npm install --save react-swipe-button
 ```
 
+## [Demo](http://react-swipe-button.rinas.in/)
+
+This is a [demo](http://react-swipe-button.rinas.in/) of react-swipe-button
+
 ## Usage
 
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-swipe-button'
+import ReactSwipeButton from 'react-swipe-button'
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      <ReactSwipeButton 
+        text='SWIPE TO UNLOCK'
+        color='#f00'
+        onSuccess={onSucces}
+      />
     )
   }
 }
 ```
+## Props
+
+**text (Default will be 'SWIPE')**
+The text that will display on the swipe button
+
+**color (Default will be '#444')**
+The color of swipe button
+
+**onSuccess**
+The function that will get called when a swipe is success
+
 
 ## License
 
