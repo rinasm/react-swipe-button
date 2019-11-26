@@ -17,6 +17,9 @@ body {
   box-shadow: 5px 5px 130px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   padding-top: 10px;
+  border-radius: 10px;
+  z-index: 10;
+  overflow: hidden;
 }
 
 @media(max-width: 500px) {
@@ -29,6 +32,7 @@ body {
   }
 }
 
+.container2,
 .container{
   position: absolute;
   bottom: 0;
@@ -40,20 +44,25 @@ body {
   background: #fff;
   box-shadow: 0 0 2px rgba(0,0,0,0.1);
 }
+.container2{
+  bottom: 110px;
+  box-shadow: none;
+}
 .c-retry{
   position: absolute;
   background: #eee;
-  height: 50px;
-  line-height: 50px;
+  height: 35px;
+  line-height: 35px;
   text-align: center;
-  width: 200px;
+  width: 100px;
   left: 50%;
-  margin-left: -100px;
+  margin-left: -50px;
   border-radius: 30px;
   font-size: 12px;
   font-family: 'Noto Sans JP', sans-serif;
-  color: #fff;
-  background: #6ab04c;
+  color: #444;
+  background: #eee;
+  cursor: pointer;
 }
 
 .ab-logo{

@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react' 
 import styles from './styles.css'
 
 const slider = React.createRef();
@@ -10,6 +9,8 @@ export default class ReactSwipeButton extends Component {
   
   isDragging = false;
   sliderLeft = 0;
+
+  state = {}
 
   componentDidMount() {
     if(isTouchDevice) {
@@ -23,7 +24,7 @@ export default class ReactSwipeButton extends Component {
   }
 
   onDrag =e=> {
-    if(this.unmounted) return;
+    if(this.unmounted || this.state.unlocked) return;
     if(this.isDragging) {
       if(isTouchDevice) {
         this.sliderLeft = Math.min(Math.max(0, e.touches[0].clientX - this.startX), this.containerWidth);
@@ -35,29 +36,32 @@ export default class ReactSwipeButton extends Component {
   }
 
   updateSliderStyle =()=> {
-    if(this.unmounted) return;
+    if(this.unmounted || this.state.unlocked) return;
     slider.current.style.left = (this.sliderLeft + 50)+'px';
   }
 
   stopDrag =()=> {
-    if(this.unmounted) return;
-    this.isDragging = false;
-    if(this.sliderLeft > this.containerWidth * 0.9) {
-      this.sliderLeft = this.containerWidth;
-      if(this.props.onSuccess) {
-        this.props.onSuccess();
+    if(this.unmounted || this.state.unlocked) return;
+    if(this.isDragging) {
+      this.isDragging = false;
+      if(this.sliderLeft > this.containerWidth * 0.9) {
+        this.sliderLeft = this.containerWidth;
+        this.onSuccess();
+        if(this.props.onSuccess) {
+          this.props.onSuccess();
+        }
+      } else {
+        this.sliderLeft = 0;
+        if(this.props.onFailure) {
+          this.props.onFailure();
+        }
       }
-    } else {
-      this.sliderLeft = 0;
-      if(this.props.onFailure) {
-        this.props.onFailure();
-      }
+      this.updateSliderStyle();
     }
-    this.updateSliderStyle();
   }
 
   startDrag =e=> {
-    if(this.unmounted) return;
+    if(this.unmounted || this.state.unlocked) return;
     this.isDragging = true;
     if(isTouchDevice) {
       this.startX = e.touches[0].clientX;
@@ -66,25 +70,43 @@ export default class ReactSwipeButton extends Component {
     }
   }
 
+  onSuccess =()=> {
+    container.current.style.width = container.current.clientWidth+'px';
+    this.setState({
+      unlocked: true
+    })
+  }
+
+  getText =()=> {
+    return this.state.unlocked ? (this.props.text_unlocked || 'UNLOCKED') : (this.props.text || 'SLIDE')
+  }
+
+  reset =()=> {
+    if(this.unmounted) return;
+    this.setState({unlocked: false}, ()=> {
+      this.sliderLeft = 0;
+      this.updateSliderStyle();
+    });
+  }
+
   componentWillUnmount() {
     this.unmounted = true;
   }
 
-  render() {
-    const {
-      text
-    } = this.props;
+  render() { 
     return (
       <div className={styles.ReactSwipeButton}>
-        <div className={styles.rsbContainer} ref={container}>
+        <div className={styles.rsbContainer + ' ' + (this.state.unlocked ? styles.rsbContainerUnlocked : '')} ref={container}>
           <div className={styles.rsbcSlider} 
             ref={slider} 
             onMouseDown={this.startDrag} 
+            style={{background: this.props.color}}
             onTouchStart={this.startDrag}>
+            <span className={styles.rsbcSliderText}>{this.getText()}</span>
             <span className={styles.rsbcSliderArrow}></span>
             <span className={styles.rsbcSliderCircle} style={{background: this.props.color}}></span>
           </div>
-          <div className={styles.rsbcText}>{this.props.text || 'SLIDE'}</div>
+          <div className={styles.rsbcText}>{this.getText()}</div>
         </div>
       </div>
     )

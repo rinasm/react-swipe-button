@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactSwipeButton from 'react-swipe-button'
 
 const textRef = React.createRef();
+const swipeButton = React.createRef();
 const colors = [
   '#6ab04c', '#eb4d4b', '#f0932b', '#30336b', '#686de0'
 ]
@@ -22,6 +23,7 @@ export default class App extends Component {
 
   resetStatus =()=> {
     this.setState({slideStatus: false});
+    swipeButton.current.reset();
   }
 
   onTextChange =()=> {
@@ -69,15 +71,14 @@ export default class App extends Component {
             </div>
           </div>
         </div>
-        {!this.state.slideStatus ? (
-          <div className='container'>
-            <ReactSwipeButton color={this.state.color} text={this.state.text} onSuccess={this.onSuccess}/>
+        {this.state.slideStatus ? (
+          <div className='container2'>
+            <div className='c-retry' onClick={this.resetStatus}>RESET</div>
           </div>
-        ) : (
-          <div className='container'>
-            <div className='c-retry' onClick={this.resetStatus}>UNLOCKED! RETRY</div>
-          </div>
-        )}
+        ):''}
+        <div className='container'>
+          <ReactSwipeButton color={this.state.color} text={this.state.text} onSuccess={this.onSuccess} ref={swipeButton}/>
+        </div>
       </div>
     )
   }

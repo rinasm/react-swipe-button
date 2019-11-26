@@ -6,6 +6,16 @@
   height: 50px;
   position: relative;
 }
+.ReactSwipeButton,
+.ReactSwipeButton * {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
 .rsbContainer{
   float: left;
   width: 100%;
@@ -13,8 +23,27 @@
   background: #eee;
   border-radius: 50px;
   position: relative;
-  box-shadow: inset 1px 1px 4px rgba(0,0,0,0.1);
+  /* box-shadow: inset 1px 1px 4px rgba(0,0,0,0.1); */
   overflow: hidden;
+}
+.rsbContainerUnlocked{
+  width: 50%!important;
+  margin-left: 25%;
+  transition: 0.5s;
+  cursor: default;
+}
+.rsbContainerUnlocked .rsbcSlider{
+  left: 100%!important;
+  cursor: default;
+  pointer-events: none;
+}
+.rsbContainerUnlocked .rsbcSliderArrow {
+  transition: 0.5s;
+  margin-right: -60px;
+}
+.rsbContainerUnlocked .rsbcSliderCircle {
+  transition: 0.5s;
+  margin-right: -60px;
 }
 .rsbcSlider {
   float: left;
@@ -24,21 +53,35 @@
   top:0;
   left: 50px;
   margin-left:-100%;
-  background: rgba(0,0,0,0.2);
+  background: #333;
   border-radius: 25px;
   z-index: 100;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+  /* box-shadow: 1px 1px 5px rgba(0,0,0,0.3); */
+  cursor: pointer;
+}
+.rsbcSliderText{
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  line-height: 50px;
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  letter-spacing: 2px;
+  color: #fff;
+  font-size: 13px;
+
 }
 .rsbcSliderArrow{
   float: left;
   position: absolute;
   transform: rotate(45deg);
-  border: 4px solid #fff;
-  height: 13px;
-  width: 13px;
+  border: 2px solid #fff;
+  height: 8px;
+  width: 8px;
   top:50%;
-  right: 20px;
-  margin-top: -10px;
+  right: 22px;
+  margin-top: -6px;
   border-left-color: transparent;
   border-bottom-color: transparent;
   transform-origin: center;
@@ -63,6 +106,7 @@
   line-height: 50px;
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  font-size: 13px;
   color: #aaa;
 }
